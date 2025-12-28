@@ -36,9 +36,9 @@ export async function renderTable(expenses) {
             <td class="note" data-content-type="text">${expense.note}</td>
             <td class="action delete"><button class="delete-btn">&times;</button></td> 
             <td class="action select">${expense.category === 'Підсумок' ? ' ' : '<input type="checkbox" class="row-checkbox">'}</td>
-        `;3
+        `;
         tr.dataset.id = expense.id;
-        // tr.dataset.type = 'expense';
+        tr.dataset.isTotal = expense.category === 'Підсумок' ? true : false;
 
         if (expense.category === 'Підсумок') tr.classList.add('total-row')
 
@@ -88,7 +88,7 @@ export function makeCellEditable(td, value) {
         td.innerHTML = '';
         td.append(selectCategory);
     } else {
-        td.innerHTML = `<input type="${td.dataset.contentType}" value=${value} class="data-changing">`;
+        td.innerHTML = `<input type="${td.dataset.contentType}" value="${value}" class="data-changing">`;
     }
 
     return document.querySelector('.data-changing');

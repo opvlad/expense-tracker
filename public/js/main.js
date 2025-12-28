@@ -69,7 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
             target.closest('tr').classList.toggle('selected');
         }
         
-        else if (target && target.closest('td') && !target.matches('input, select, .note, .action')) {
+        else if (target && canChange(target)) {
             handleChangeCell(target);
         }
     });
@@ -183,12 +183,31 @@ window.addEventListener('DOMContentLoaded', () => {
         updateTable();
     }
 
-    function handleChangeCell(target, ) {
+    function canChange(target) {
+        const td = target.closest('td');
+
+        if (!td) {
+            return false;
+        }
+
+        if (target.matches('input, select, .action')) {
+            return false;
+        }
+
+        if (td.parentElement.dataset.isTotal === 'true') {
+            if (td.matches('.category, .amount')) return false;
+        }
+
+        return true;
+    }
+
+    function handleChangeCell(target) {
         const value = target.matches('select') ? target.value : target.textContent,
                 td = target.closest('td'),
                 originalTdHtml = td.innerHTML;
 
         const cell = makeCellEditable(td, value);
+
         cell.focus();
         cell.value = '';
         setTimeout(() => cell.value = value, 20);
@@ -221,7 +240,7 @@ window.addEventListener('DOMContentLoaded', () => {
               expense = Object.fromEntries(formData);
               
         expense.date = expense.date ? new Date(expense.date) : new Date();
-        
+
         const res = await createExpense(expense);
 
         if (!res.ok) {
