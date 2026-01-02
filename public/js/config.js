@@ -1,9 +1,9 @@
-export const API_URL = 'https://expense-tracker-tbuj.onrender.com/api/v1/expenses';
+export const API_URL = 'https://expense-tracker-tbuj.onrender.com/api/v1/expenses/';
 
 // http://192.168.1.243:9000/api/v1/expenses/   ?
 // http://172.20.10.13:9000/api/v1/expenses/    mobile
 // http://127.0.0.1:9000/api/v1/expenses/       local
-// https://expense-tracker-tbuj.onrender.com/api/v1/expenses    render.com
+// https://expense-tracker-tbuj.onrender.com/api/v1/expenses/    render.com
 
 export const categories = {
     'Їжа': '🍔 Їжа',
